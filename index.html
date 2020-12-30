@@ -1,0 +1,33 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <p>Meu primeiro Aplicativo</p>
+    <canvas id="primeiro_canvas" width="500" height="500" style="border:1px solid"></canvas>
+
+    <script>
+        function triangulo(tamanho) {
+            meu_canvas.moveTo(tamanho / 2, 0);
+            meu_canvas.lineTo(0, tamanho);
+            meu_canvas.lineTo(tamanho, tamanho);
+            meu_canvas.lineTo(tamanho / 2, 0);
+        }
+
+        var meu_canvas = document.getElementById("primeiro_canvas").getContext("2d");
+        var largura = document.getElementById("primeiro_canvas").width; //500
+
+        for (var i = 1; i < 15; i++) {
+            if (i == 1 || i % 3 == 0) {
+                triangulo(largura / i);
+            } else {
+                triangulo(largura);
+            }
+        }
+        meu_canvas.strokeStyle = 'red';
+        meu_canvas.stroke();
+    </script>
+</body>
+
+</html>
