@@ -4,65 +4,71 @@
 </head>
 
 <body>
-    <p>Triângulo de Sierpinski</p>
-    <canvas id="primeiro_canvas" width="500" height="500" style="border:1px solid"></canvas>
+    <center>
+        <h1>Triângulo de Sierpinski</h1>
+        <canvas id="sierpinski_canvas" width="500" height="500" style="border:1px solid"></canvas>
 
-    <script>
-        var width = 500;
-        var height = 500;
-        var size = 400;
+        <script>
+            var width = 500;
+            var height = 500;
+            var size = 400;
 
-        function sierpinski(Ax, Ay, Bx, By, Cx, Cy, d, ctx) {
-            if (d > 0) {
-                var pointAx = (Bx + Cx) / 2;
-                var pointAy = (By + Cy) / 2;
+            function sierpinski(Ax, Ay, Bx, By, Cx, Cy, d, ctx) {
+                if (d > 0) {
+                    var pointAx = (Bx + Cx) / 2;
+                    var pointAy = (By + Cy) / 2;
 
-                var pointBx = (Ax + Cx) / 2;
-                var pointBy = (Ay + Cy) / 2;
+                    var pointBx = (Ax + Cx) / 2;
+                    var pointBy = (Ay + Cy) / 2;
 
-                var pointCx = (Ax + Bx) / 2;
-                var pointCy = (Ay + By) / 2;
+                    var pointCx = (Ax + Bx) / 2;
+                    var pointCy = (Ay + By) / 2;
 
-                var d2 = d - 1;
-                sierpinski(Ax, Ay, pointBx, pointBy, pointCx, pointCy, d2, ctx);
-                sierpinski(pointCx, pointCy, pointAx, pointAy, Bx, By, d2, ctx);
-                sierpinski(pointBx, pointBy, pointAx, pointAy, Cx, Cy, d2, ctx);
+                    var d2 = d - 1;
+                    sierpinski(Ax, Ay, pointBx, pointBy, pointCx, pointCy, d2, ctx);
+                    sierpinski(pointCx, pointCy, pointAx, pointAy, Bx, By, d2, ctx);
+                    sierpinski(pointBx, pointBy, pointAx, pointAy, Cx, Cy, d2, ctx);
+                }
+                else {
+                    ctx.moveTo(Ax, Ay);
+                    ctx.lineTo(Bx, By);
+                    ctx.lineTo(Cx, Cy);
+                    ctx.lineTo(Ax, Ay);
+                }
             }
-            else {
-                ctx.moveTo(Ax, Ay);
-                ctx.lineTo(Bx, By);
-                ctx.lineTo(Cx, Cy);
-                ctx.lineTo(Ax, Ay);
+
+            function drawSierpinski(ctx) {
+                var midPointX = width / 2;
+                var midPointY = height / 2;
+
+                var deep = 10;
+
+                var ri = (size / 6) * Math.sqrt(3);
+                var ru = (size / 3) * Math.sqrt(3);
+
+                var pointAx = midPointX - (size / 2);
+                var pointAy = midPointY + ri;
+
+                var pointBx = midPointX + (size / 2);
+                var pointBy = midPointY + ri;
+
+                var pointCx = midPointX;
+                var pointCy = midPointY - ru;
+
+                sierpinski(pointAx, pointAy, pointBx, pointBy, pointCx, pointCy, deep, ctx);
             }
-        }
 
+            var ctx = document.getElementById("sierpinski_canvas").getContext("2d");
+            drawSierpinski(ctx);
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+        </script>
 
-        function drawSierpinski(ctx) {
-            var midPointX = width / 2;
-            var midPointY = height / 2;
-
-            var deep = 10;
-
-            var ri = (size / 6) * Math.sqrt(3);
-            var ru = (size / 3) * Math.sqrt(3);
-
-            var pointAx = midPointX - (size / 2);
-            var pointAy = midPointY + ri;
-
-            var pointBx = midPointX + (size / 2);
-            var pointBy = midPointY + ri;
-
-            var pointCx = midPointX;
-            var pointCy = midPointY - ru;
-
-            sierpinski(pointAx, pointAy, pointBx, pointBy, pointCx, pointCy, deep, ctx);
-        }
-
-        var ctx = document.getElementById("primeiro_canvas").getContext("2d");
-        drawSierpinski(ctx);
-        ctx.strokeStyle = 'red';
-        ctx.stroke();
-    </script>
+        <p>
+            <a href="index.html"><button type="button">Início</button></a>
+            <a href="mandelbrot.html"><button type="button">Mandelbrot</button></a>
+        </p>
+    </center>
 </body>
 
 </html>

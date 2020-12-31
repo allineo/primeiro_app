@@ -4,30 +4,60 @@
 </head>
 
 <body>
-    <p>Meu primeiro Aplicativo</p>
-    <canvas id="primeiro_canvas" width="500" height="500" style="border:1px solid"></canvas>
+    <center>
+        <h1>Meu primeiro Aplicativo</h1>
 
-    <script>
-        function triangulo(tamanho) {
-            meu_canvas.moveTo(tamanho / 2, 0);
-            meu_canvas.lineTo(0, tamanho);
-            meu_canvas.lineTo(tamanho, tamanho);
-            meu_canvas.lineTo(tamanho / 2, 0);
-        }
+        <p>
+            Quantidade de repetições:
+            <input type="number" id="niveis_triangulo">
+            <button type="button" onclick="gerar_triangulos()">Enviar</button>
+        </p>
 
-        var meu_canvas = document.getElementById("primeiro_canvas").getContext("2d");
-        var largura = document.getElementById("primeiro_canvas").width; //500
+        <canvas id="primeiro_canvas" width="500" height="500" style="border:1px solid"></canvas>
 
-        for (var i = 1; i < 15; i++) {
-            if (i == 1 || i % 3 == 0) {
-                triangulo(largura / i);
-            } else {
-                triangulo(largura);
+        <script>
+            function triangulo(tamanho) {
+                meu_canvas.moveTo(tamanho / 2, 0);
+                meu_canvas.lineTo(0, tamanho);
+                meu_canvas.lineTo(tamanho, tamanho);
+                meu_canvas.lineTo(tamanho / 2, 0);
             }
-        }
-        meu_canvas.strokeStyle = 'red';
-        meu_canvas.stroke();
-    </script>
+
+            function limpar_canvas() {
+                meu_canvas.clearRect(0, 0, largura - 1, largura - 1);
+                meu_canvas.beginPath();
+            }
+
+            function gerar_triangulos() {
+
+                limpar_canvas();
+                var repeticoes = document.getElementById("niveis_triangulo").value;
+
+                for (var i = 1; i < repeticoes; i++) {
+                    if (i == 1 || i % 3 == 0) {
+                        triangulo(largura / i);
+                    } else {
+                        triangulo(largura);
+                    }
+                }
+                meu_canvas.strokeStyle = 'red';
+                meu_canvas.stroke();
+            }
+
+            var meu_canvas = document.getElementById("primeiro_canvas").getContext("2d");
+            var largura = document.getElementById("primeiro_canvas").width; //500
+
+            document.getElementById("niveis_triangulo").value = 15;
+
+            gerar_triangulos();
+
+        </script>
+
+        <p>
+            <a href="sierpinski.html"><button type="button">Sierpinski</button></a>
+            <a href="mandelbrot.html"><button type="button">Mandelbrot</button></a>
+        </p>
+    </center>
 </body>
 
 </html>
